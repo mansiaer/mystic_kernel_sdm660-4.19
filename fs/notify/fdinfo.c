@@ -155,7 +155,7 @@ orig_flow:
 		seq_putc(m, '\n');
 		iput(inode);
 	}
-}}
+}
 
 void inotify_show_fdinfo(struct seq_file *m, struct file *f)
 {
