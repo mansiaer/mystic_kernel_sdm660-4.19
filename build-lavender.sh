@@ -71,7 +71,7 @@ fi
 
 # Build starts here
     Build
-    if [ $? -ne 1 ]
+    if [ $? -ne 0 ]
     then
         echo "Build failed"
         rm -rf out/outputs/${PHONE}/NSE/*
