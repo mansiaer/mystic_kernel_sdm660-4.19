@@ -1,0 +1,30 @@
+version: 2.1
+jobs:
+  compile:
+   docker:
+      - image: nexgang/ubuntu:latest
+   steps:
+      - run:
+         command: |
+           sudo apt-get update
+           sudo apt-get install -y build-essential bc curl flex cpio git zip dwarves gcc-arm-linux-gnueabi libelf-dev gcc-aarch64-linux-gnu libssl-dev python3 clang lld llvm llvm-dev
+
+      - run:
+          command: |
+           git config --global color.ui false
+           git clone --depth=1 https://github.com/${CIRCLE_PROJECT_USERNAME}/${CIRCLE_PROJECT_REPONAME} -b ${CIRCLE_BRANCH} .
+           bash build-lavender.sh
+
+      - store_artifacts:
+          path: zone_lavender/lavender.zip
+          destination: lavender.zip
+
+      - store_artifacts:
+           path: log.txt
+           destination: log.txt
+
+workflows:
+  version: 2.1
+  cooking:
+    jobs:
+      - compile
